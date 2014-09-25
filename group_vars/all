@@ -1,2 +1,3 @@
 ansible_ssh_user: root
 sudo: no
+ntp_server_ip: 192.168.0.1
