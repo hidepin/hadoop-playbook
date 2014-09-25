@@ -1,0 +1,5 @@
+---
+# file: slave.yml
+- hosts: slave
+  roles:
+    - common

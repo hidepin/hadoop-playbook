@@ -1,0 +1,4 @@
+---
+# file: site.yml
+- include: master.yml
+- include: slave.yml
