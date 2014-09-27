@@ -1,4 +1,7 @@
 ---
 # file: roles/common/handlers/main.yml
+- name: ntpd start
+  service: name=ntpd state=started enabled=yes
+
 - name: restart ntpd
-  service: name=ntpd state=restarted enabled=yes
+  service: name=ntpd state=restarted
