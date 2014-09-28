@@ -10,7 +10,7 @@
 
 - name: disable selinux
   selinux: state=disabled
-  when: ansible_selinux.config_mode != "disabled"
+  when: ansible_selinux.config_mode is not defined or ansible_selinux.config_mode != "disabled"
 
 - name: ntp setting
   template: src=ntp.conf.j2 dest=/etc/ntp.conf
@@ -26,7 +26,7 @@
 
 - name: generate hosts files
   lineinfile: dest=/etc/hosts regexp='^{{item}}.*' line="{{item}} {{hostvars[item].ansible_fqdn}} {{hostvars[item].ansible_hostname}}" state=present
-#  when: hostvars[item].ansible_fqdn is defined
+  when: hostvars[item].ansible_fqdn is defined
   with_items: groups['all']
 
 - name: Oracle JDK install check
@@ -41,3 +41,16 @@
 - name: Oracle JDK install
   yum: name=/tmp/{{jdk}} state=present
   when: inst_jdk.rc == 1
+
+- name: Add hadoop group
+  group:
+    name={{hadoop_user.group}}
+    gid={{hadoop_user.gid}}
+
+- name: Add hadoop user
+  user:
+    name="{{hadoop_user.username}}"
+    password="{{hadoop_user.password}}"
+    uid="{{hadoop_user.uid}}"
+    group="{{hadoop_user.group}}"
+    comment="{{hadoop_user.username}}"

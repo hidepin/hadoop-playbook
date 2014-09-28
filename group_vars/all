@@ -2,3 +2,10 @@ ansible_ssh_user: root
 sudo: no
 ntp_server_ip: 192.168.0.1
 jdk: jdk-7u67-linux-x64.rpm
+hadoop_user:
+  username: hadoop
+  # password="hadoop123"
+  password: $6$D2SUQDvxua6oxQ$/XnR12xFXmaCLLxbr9R4qbntWIQBKawEliGYgFgeOsXBTiN9Jd7bR0ErSqd9SpCL7acMovA7XWNiIph0BJzA40
+  uid: 2001
+  group: hadoop
+  gid: 2001
