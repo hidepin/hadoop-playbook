@@ -32,7 +32,8 @@
 - name: Oracle JDK install check
   command: rpm -q jdk
   register: inst_jdk
-  ignore_errors: yes
+  failed_when: inst_jdk.rc not in [0,1]
+  changed_when: inst_jdk.rc != 0
 
 - name: copy Oracle JDK
   copy: src={{jdk}} dest=/tmp
