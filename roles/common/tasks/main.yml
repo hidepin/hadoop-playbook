@@ -54,3 +54,13 @@
     uid="{{hadoop_user.uid}}"
     group="{{hadoop_user.group}}"
     comment="{{hadoop_user.username}}"
+
+- name: Add a Cloudera reposigory key
+  rpm_key:
+    state=present
+    key=http://archive.cloudera.com/cdh5/redhat/6/x86_64/cdh/RPM-GPG-KEY-cloudera
+
+- name: install CDH5 package
+  yum:
+    name=http://archive.cloudera.com/cdh5/one-click-install/redhat/6/x86_64/cloudera-cdh-5-0.x86_64.rpm
+    state=present
