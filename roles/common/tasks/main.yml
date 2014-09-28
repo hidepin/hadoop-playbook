@@ -29,3 +29,15 @@
 #  when: hostvars[item].ansible_fqdn is defined
   with_items: groups['all']
 
+- name: Oracle JDK install check
+  command: rpm -q jdk
+  register: inst_jdk
+  ignore_errors: yes
+
+- name: copy Oracle JDK
+  copy: src={{jdk}} dest=/tmp
+  when: inst_jdk.rc == 1
+
+- name: Oracle JDK install
+  yum: name=/tmp/{{jdk}} state=present
+  when: inst_jdk.rc == 1
