@@ -1,0 +1,9 @@
+---
+# file: roles/slave/tasks/main.yml
+
+- name: packages install
+  yum: name={{item}} state=present
+  with_items:
+    - hadoop-yarn-nodemanager
+    - hadoop-hdfs-datanode
+    - hadoop-mapreduce

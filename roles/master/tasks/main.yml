@@ -1,0 +1,11 @@
+---
+# file: roles/master/tasks/main.yml
+
+- name: packages install
+  yum: name={{item}} state=present
+  with_items:
+    - hadoop-yarn-resourcemanager
+    - hadoop-hdfs-namenode
+    - hadoop-hdfs-secondarynamenode
+    - hadoop-mapreduce-historyserver
+    - hadoop-yarn-proxyserver
