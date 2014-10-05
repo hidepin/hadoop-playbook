@@ -9,3 +9,4 @@ hadoop_user:
   uid: 2001
   group: hadoop
   gid: 2001
+hadoop_conf: conf.mycluster
