@@ -7,3 +7,25 @@
     - hadoop-yarn-nodemanager
     - hadoop-hdfs-datanode
     - hadoop-mapreduce
+
+- name: create partition
+  command: parted /dev/{{item}} mklabel gpt -- mkpart primary ext4 1 -1
+  when: ansible_devices.{{item}}.partitions.{{item}}1 is not defined
+  with_items:
+    - sdb
+    - sdc
+    - sdd
+
+- name: format for hdfs disk.
+  filesystem: fstype=ext4 dev={{item}}
+  with_items:
+    - /dev/sdb1
+    - /dev/sdc1
+    - /dev/sdd1
+
+- name: mount device for hdfs
+  mount: name={{item.name}} src={{item.dev}} fstype=ext4 state=mounted
+  with_items:
+    - { name: '/data/1', dev: '/dev/sdb1' }
+    - { name: '/data/2', dev: '/dev/sdc1' }
+    - { name: '/data/3', dev: '/dev/sdd1' }

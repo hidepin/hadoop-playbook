@@ -24,3 +24,13 @@
     - ssl-server.xml.example
     - yarn-env.sh
     - yarn-site.xml
+
+- name: hadoop-conf check
+  shell: alternatives --display hadoop-conf | grep Current | sed 's#[^/]*\(/.*\)\.$#\1#'
+  register: alter_hadoop_conf
+  failed_when: alter_hadoop_conf.rc not in [0,1]
+  changed_when: alter_hadoop_conf.stdout.find('/etc/hadoop/{{hadoop_conf}}') != -1
+
+- name: alternatives hadoop-conf
+  alternatives: name=hadoop_conf link=/etc/hadoop/conf path=/etc/hadoop/{{hadoop_conf}}
+  when: alter_hadoop_conf.stdout.find('/etc/hadoop/{{hadoop_conf}}') != -1

@@ -10,3 +10,4 @@ hadoop_user:
   group: hadoop
   gid: 2001
 hadoop_conf: conf.mycluster
+namenode: hadoop-master01.localdomain
