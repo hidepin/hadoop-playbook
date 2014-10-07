@@ -18,8 +18,14 @@
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 
 <configuration>
+  <!-- for namenode -->
   <property>
-     <name>dfs.name.dir</name>
-     <value>/var/lib/hadoop-hdfs/cache/hdfs/dfs/name</value>
+     <name>dfs.namenode.name.dir</name>
+     <value>file:///data/1/dfs/nn</value>
+  </property>
+  <!-- for datanode -->
+  <property>
+    <name>dfs.datanode.data.dir</name>
+    <value>file:///data/1/dfs/dn,file:///data/2/dfs/dn,file:///data/3/dfs/dn</value>
   </property>
 </configuration>

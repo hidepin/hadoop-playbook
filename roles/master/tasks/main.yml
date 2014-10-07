@@ -9,3 +9,8 @@
     - hadoop-hdfs-secondarynamenode
     - hadoop-mapreduce-historyserver
     - hadoop-yarn-proxyserver
+
+- name: create namenode dir
+  file: dest={{item}}/dfs/nn state=directory recurse=yes owner=hdfs group=hdfs mode=0700
+  with_items:
+    - /data/1
