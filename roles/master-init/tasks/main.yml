@@ -1,0 +1,12 @@
+---
+# file: roles/master-init/tasks/main.yml
+
+- name: hdfs format check 
+  command: ls /data/1/dfs/nn/current
+  register: hdfs_format
+  failed_when: hdfs_format.rc not in [0,1]
+  changed_when: hdfs_format.rc not in [0,1]
+
+- name: hdfs format
+  shell: su - hdfs -c "echo Y | hdfs namenode -format"
+  when: hdfs_format.rc not in [0,1]

@@ -4,3 +4,4 @@
   roles:
     - master
     - common-setup
+    - master-init
