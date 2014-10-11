@@ -20,23 +20,18 @@
 <configuration>
 
   <property>
-     <name>dfs.permissions.superusergroup</name>
-     <value>hadoop</value>
-  </property>
-
-  <property>
      <name>dfs.namenode.name.dir</name>
-     <value>/data/1/dfs/nn</value>
+     <value>file:///data/1/dfs/nn</value>
   </property>
 
   <property>
      <name>dfs.namenode.checkpoint.dir</name>
-     <value>/data/1/dfs/snn</value>
+     <value>file:///data/1/dfs/snn</value>
   </property>
 
   <property>
     <name>dfs.datanode.data.dir</name>
-    <value>/data/1/dfs/dn,/data/2/dfs/dn,/data/3/dfs/dn</value>
+    <value>file:///data/1/dfs/dn,file:///data/2/dfs/dn,file:///data/3/dfs/dn</value>
   </property>
 
   <property>

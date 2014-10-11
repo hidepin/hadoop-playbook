@@ -36,19 +36,19 @@
   <property>
     <description>List of directories to store localized files in.</description>
     <name>yarn.nodemanager.local-dirs</name>
-    <value>/data/1/yarn/local,/data/2/yarn/local,/data/3/yarn/local</value>
+    <value>file:///data/1/yarn/local,file:///data/2/yarn/local,file:///data/3/yarn/local</value>
   </property>
 
   <property>
     <description>Where to store container logs.</description>
     <name>yarn.nodemanager.log-dirs</name>
-    <value>/data/1/yarn/logs,/data/2/yarn/logs,/data/3/yarn/logs</value>
+    <value>file:///data/1/yarn/logs,file:///data/2/yarn/logs,file:///data/3/yarn/logs</value>
   </property>
 
   <property>
     <description>Where to aggregate logs to.</description>
     <name>yarn.nodemanager.remote-app-log-dir</name>
-    <value>/var/log/hadoop-yarn/apps</value>
+    <value>hdfs://{{namenode}}:8020//var/log/hadoop-yarn/apps</value>
   </property>
 
   <property>
@@ -66,6 +66,11 @@
   <property>
     <name>yarn.nodemanager.resource.memory-mb</name>
     <value>512</value>
+  </property>
+
+  <property>
+    <name>yarn.resourcemanager.hostname</name>
+    <value>{{namenode}}</value>
   </property>
 
 </configuration>
