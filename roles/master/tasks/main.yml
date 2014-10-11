@@ -14,3 +14,8 @@
   file: dest={{item}}/dfs/nn state=directory recurse=yes owner=hdfs group=hdfs mode=0700
   with_items:
     - /data/1
+
+- name: create secondary namenode dir
+  file: dest={{item}}/dfs/snn state=directory recurse=yes owner=hdfs group=hdfs mode=0700
+  with_items:
+    - /data/1

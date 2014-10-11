@@ -36,13 +36,13 @@
   <property>
     <description>List of directories to store localized files in.</description>
     <name>yarn.nodemanager.local-dirs</name>
-    <value>/var/lib/hadoop-yarn/cache/${user.name}/nm-local-dir</value>
+    <value>/data/1/yarn/local,/data/2/yarn/local,/data/3/yarn/local</value>
   </property>
 
   <property>
     <description>Where to store container logs.</description>
     <name>yarn.nodemanager.log-dirs</name>
-    <value>/var/log/hadoop-yarn/containers</value>
+    <value>/data/1/yarn/logs,/data/2/yarn/logs,/data/3/yarn/logs</value>
   </property>
 
   <property>
@@ -62,4 +62,10 @@
         $HADOOP_YARN_HOME/*,$HADOOP_YARN_HOME/lib/*
      </value>
   </property>
+
+  <property>
+    <name>yarn.nodemanager.resource.memory-mb</name>
+    <value>512</value>
+  </property>
+
 </configuration>

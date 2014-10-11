@@ -1,12 +1,20 @@
 ---
 # file: roles/master-init/tasks/main.yml
 
-- name: hdfs format check 
+- name: hdfs namenode format check 
   command: ls /data/1/dfs/nn/current
   register: hdfs_format
-  failed_when: hdfs_format.rc not in [0,1]
+  failed_when: hdfs_format.rc not in [0,1,2]
   changed_when: hdfs_format.rc not in [0,1]
 
-- name: hdfs format
-  shell: su - hdfs -c "echo Y | hdfs namenode -format"
+- name: hdfs namenode format
+  shell: echo Y | service hadoop-hdfs-namenode init
   when: hdfs_format.rc not in [0,1]
+
+- name: master service settings
+  service: name={{item}} state=started enabled=yes
+  with_items:
+    - hadoop-hdfs-namenode
+    - hadoop-hdfs-secondarynamenode
+    - hadoop-yarn-resourcemanager
+    - hadoop-mapreduce-historyserver

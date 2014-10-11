@@ -29,8 +29,36 @@
   shell: alternatives --display hadoop-conf | grep Current | sed 's#[^/]*\(/.*\)\.$#\1#'
   register: alter_hadoop_conf
   failed_when: alter_hadoop_conf.rc not in [0,1]
-  changed_when: alter_hadoop_conf.stdout.find('/etc/hadoop/{{hadoop_conf}}') != -1
+  changed_when: alter_hadoop_conf.stdout.find('/etc/hadoop/{{hadoop_conf}}') == -1
 
 - name: alternatives hadoop-conf
   alternatives: name=hadoop_conf link=/etc/hadoop/conf path=/etc/hadoop/{{hadoop_conf}}
-  when: alter_hadoop_conf.stdout.find('/etc/hadoop/{{hadoop_conf}}') != -1
+  when: alter_hadoop_conf.stdout.find('/etc/hadoop/{{hadoop_conf}}') == -1
+
+- name: add bash settings for hadoop-hdfs
+  template: src=dot_{{item}}.j2 dest=/var/lib//hadoop-hdfs/.{{item}}
+  with_items:
+    - bash_logout
+    - bash_profile
+    - bashrc
+
+- name: bash settings for hadoop-hdfs
+  template: src=dot_{{item}}.j2 dest=/var/lib//hadoop-hdfs/.{{item}} owner=hdfs group=hdfs
+  with_items:
+    - bash_logout
+    - bash_profile
+    - bashrc
+
+- name: bash settings for hadoop-mapreduce
+  template: src=dot_{{item}}.j2 dest=/var/lib//hadoop-mapreduce/.{{item}} owner=mapred group=mapred
+  with_items:
+    - bash_logout
+    - bash_profile
+    - bashrc
+
+- name: bash settings for hadoop-yarn
+  template: src=dot_{{item}}.j2 dest=/var/lib//hadoop-yarn/.{{item}} owner=yarn group=yarn
+  with_items:
+    - bash_logout
+    - bash_profile
+    - bashrc

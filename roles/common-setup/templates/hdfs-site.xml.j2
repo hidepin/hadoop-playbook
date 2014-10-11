@@ -18,18 +18,50 @@
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 
 <configuration>
-  <!-- for namenode -->
+
+  <property>
+     <name>dfs.permissions.superusergroup</name>
+     <value>hadoop</value>
+  </property>
+
   <property>
      <name>dfs.namenode.name.dir</name>
-     <value>file:///data/1/dfs/nn</value>
+     <value>/data/1/dfs/nn</value>
   </property>
-  <!-- for datanode -->
+
+  <property>
+     <name>dfs.namenode.checkpoint.dir</name>
+     <value>/data/1/dfs/snn</value>
+  </property>
+
   <property>
     <name>dfs.datanode.data.dir</name>
-    <value>file:///data/1/dfs/dn,file:///data/2/dfs/dn,file:///data/3/dfs/dn</value>
+    <value>/data/1/dfs/dn,/data/2/dfs/dn,/data/3/dfs/dn</value>
   </property>
+
   <property>
     <name>dfs.datanode.failed.volumes.tolerated</name>
     <value>2</value>
   </property>
+
+  <property>
+    <name>dfs.webhdfs.enabled</name>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>dfs.blocksize</name>
+    <value>67108864</value>
+  </property>
+
+  <property>
+    <name>dfs.datanode.handler.count</name>
+    <value>3</value>
+  </property>
+
+  <property>
+    <name>dfs.namenode.handler.count</name>
+    <value>10</value>
+  </property>
+
 </configuration>

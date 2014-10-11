@@ -36,3 +36,18 @@
     - /data/1
     - /data/2
     - /data/3
+
+- name: create nodemanager dir
+  file: dest={{item}}/yarn/local state=directory recurse=yes owner=yarn group=hdfs mode=0755
+  with_items:
+    - /data/1
+    - /data/2
+    - /data/3
+
+- name: create nodemanager log dir
+  file: dest={{item}}/yarn/logs state=directory recurse=yes owner=yarn group=hdfs mode=0755
+  with_items:
+    - /data/1
+    - /data/2
+    - /data/3
+
