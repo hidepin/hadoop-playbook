@@ -35,27 +35,24 @@
   register: inst_jdk
   failed_when: inst_jdk.rc not in [0,1]
   changed_when: inst_jdk.rc != 0
-
-- name: copy Oracle JDK
-  copy: src={{jdk}} dest=/tmp
-  when: inst_jdk.rc == 1
-
-- name: Oracle JDK install
-  yum: name=/tmp/{{jdk}} state=present
-  when: inst_jdk.rc == 1
+  notify:
+    - copy Oracle JDK
+    - Oracle JDK install
 
 - name: Add hadoop group
   group:
-    name={{hadoop_user.group}}
-    gid={{hadoop_user.gid}}
+    name={{item.group}}
+    gid={{item.gid}}
+  with_items: hadoop_user
 
 - name: Add hadoop user
   user:
-    name="{{hadoop_user.username}}"
-    password="{{hadoop_user.password}}"
-    uid="{{hadoop_user.uid}}"
-    group="{{hadoop_user.group}}"
-    comment="{{hadoop_user.username}}"
+    name="{{item.name}}"
+    password="{{item.password}}"
+    uid="{{item.uid}}"
+    group="{{item.group}}"
+    comment="{{item.name}}"
+  with_items: hadoop_user
 
 - name: Add a Cloudera reposigory key
   rpm_key:

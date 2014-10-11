@@ -9,45 +9,26 @@
     - hadoop-mapreduce
 
 - name: create partition
-  command: parted /dev/{{item}} mklabel gpt -- mkpart primary ext4 1 -1
-  when: ansible_devices.{{item}}.partitions.{{item}}1 is not defined
-  with_items:
-    - sdb
-    - sdc
-    - sdd
+  command: parted /dev/{{item.dev}}1 mklabel gpt -- mkpart primary ext4 1 -1
+  when: ansible_devices.{{item.dev}}.partitions.{{item.dev}}1 is not defined
+  with_items: hadoop_storage
 
 - name: format for hdfs disk.
-  filesystem: fstype=ext4 dev={{item}}
-  with_items:
-    - /dev/sdb1
-    - /dev/sdc1
-    - /dev/sdd1
+  filesystem: fstype=ext4 dev=/dev/{{item.dev}}1
+  with_items: hadoop_storage
 
 - name: mount device for hdfs
-  mount: name={{item.name}} src={{item.dev}} fstype=ext4 state=mounted
-  with_items:
-    - { name: '/data/1', dev: '/dev/sdb1' }
-    - { name: '/data/2', dev: '/dev/sdc1' }
-    - { name: '/data/3', dev: '/dev/sdd1' }
+  mount: name={{item.mount_point}} src=/dev/{{item.dev}}1 fstype=ext4 state=mounted
+  with_items: hadoop_storage
 
 - name: create datanode dir
-  file: dest={{item}}/dfs/dn state=directory recurse=yes owner=hdfs group=hdfs mode=0700
-  with_items:
-    - /data/1
-    - /data/2
-    - /data/3
+  file: dest={{item.mount_point}}/dfs/dn state=directory recurse=yes owner=hdfs group=hdfs mode=0700
+  with_items: hadoop_storage
 
 - name: create nodemanager dir
-  file: dest={{item}}/yarn/local state=directory recurse=yes owner=yarn group=hdfs mode=0755
-  with_items:
-    - /data/1
-    - /data/2
-    - /data/3
+  file: dest={{item.mount_point}}/yarn/local state=directory recurse=yes owner=yarn group=hdfs mode=0755
+  with_items: hadoop_storage
 
 - name: create nodemanager log dir
-  file: dest={{item}}/yarn/logs state=directory recurse=yes owner=yarn group=hdfs mode=0755
-  with_items:
-    - /data/1
-    - /data/2
-    - /data/3
-
+  file: dest={{item.mount_point}}/yarn/logs state=directory recurse=yes owner=yarn group=hdfs mode=0755
+  with_items: hadoop_storage

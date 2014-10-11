@@ -3,11 +3,11 @@ sudo: no
 ntp_server_ip: 192.168.0.1
 jdk: jdk-7u67-linux-x64.rpm
 hadoop_user:
-  username: hadoop
   # password="hadoop123"
-  password: $6$D2SUQDvxua6oxQ$/XnR12xFXmaCLLxbr9R4qbntWIQBKawEliGYgFgeOsXBTiN9Jd7bR0ErSqd9SpCL7acMovA7XWNiIph0BJzA40
-  uid: 2001
-  group: hadoop
-  gid: 2001
+  - { name: 'hadoop', password: '$6$D2SUQDvxua6oxQ$/XnR12xFXmaCLLxbr9R4qbntWIQBKawEliGYgFgeOsXBTiN9Jd7bR0ErSqd9SpCL7acMovA7XWNiIph0BJzA40', uid: '2001', group: 'hadoop', gid: '2001' }
 hadoop_conf: conf.mycluster
 namenode: hadoop-master01.localdomain
+hadoop_storage:
+    - { mount_point: '/data/1', dev: 'sdb' }
+    - { mount_point: '/data/2', dev: 'sdc' }
+    - { mount_point: '/data/3', dev: 'sdd' }

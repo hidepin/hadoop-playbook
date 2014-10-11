@@ -1,0 +1,5 @@
+---
+# file: roles/common-setup/handlers/main.yml
+- name: alternatives hadoop-conf
+  alternatives: name=hadoop_conf link=/etc/hadoop/conf path=/etc/hadoop/{{hadoop_conf}}
+

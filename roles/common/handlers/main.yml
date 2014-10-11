@@ -5,3 +5,9 @@
 
 - name: restart ntpd
   service: name=ntpd state=restarted
+
+- name: copy Oracle JDK
+  copy: src={{jdk}} dest=/tmp
+
+- name: Oracle JDK install
+  yum: name=/tmp/{{jdk}} state=present

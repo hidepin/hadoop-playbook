@@ -1,0 +1,4 @@
+---
+# file: roles/master-init/handlers/main.yml
+- name: hdfs namenode format
+  shell: echo Y | service hadoop-hdfs-namenode init
