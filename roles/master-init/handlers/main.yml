@@ -2,3 +2,11 @@
 # file: roles/master-init/handlers/main.yml
 - name: hdfs namenode format
   shell: echo Y | service hadoop-hdfs-namenode init
+
+- name: master service settings
+  service: name={{item}} state=started enabled=yes
+  with_items:
+    - hadoop-hdfs-namenode
+    - hadoop-hdfs-secondarynamenode
+    - hadoop-yarn-resourcemanager
+    - hadoop-mapreduce-historyserver

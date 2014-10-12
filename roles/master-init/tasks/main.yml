@@ -6,12 +6,6 @@
   register: hdfs_format
   failed_when: hdfs_format.rc not in [0,1,2]
   changed_when: hdfs_format.rc not in [0,1]
-  notify: hdfs namenode format
-
-- name: master service settings
-  service: name={{item}} state=started enabled=yes
-  with_items:
-    - hadoop-hdfs-namenode
-    - hadoop-hdfs-secondarynamenode
-    - hadoop-yarn-resourcemanager
-    - hadoop-mapreduce-historyserver
+  notify:
+    - hdfs namenode format
+    - master service settings

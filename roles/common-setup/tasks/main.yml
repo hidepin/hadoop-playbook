@@ -26,10 +26,10 @@
     - yarn-site.xml
 
 - name: hadoop-conf check
-  shell: alternatives --display hadoop-conf | grep Current | sed 's#[^/]*\(/.*\)\.$#\1#'
+  shell: alternatives --display hadoop-conf | grep Current
   register: alter_hadoop_conf
   failed_when: alter_hadoop_conf.rc not in [0,1]
-  changed_when: alter_hadoop_conf.stdout.find('/etc/hadoop/{{hadoop_conf}}') != -1
+  changed_when: alter_hadoop_conf.stdout.find('/etc/hadoop/{{hadoop_conf}}') == -1
   notify:
     - alternatives hadoop-conf
 
